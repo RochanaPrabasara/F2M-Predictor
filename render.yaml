@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: farm2market-api
+    runtime: docker
+    plan: free
+    region: oregon
+    buildCommand: ""
+    startCommand: gunicorn --bind 0.0.0.0:5000 --timeout 120 --workers 2 prediction_api:app
+    envVars:
+      - key: FLASK_ENV
+        value: production

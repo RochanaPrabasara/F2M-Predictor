@@ -1,0 +1,10 @@
+services:
+  api:
+    build: .
+    image: farm2market/price-predictor     # ← Add this line (choose any name you like, lowercase-no-spaces recommended)
+    container_name: farm2market-api
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+    restart: unless-stopped
