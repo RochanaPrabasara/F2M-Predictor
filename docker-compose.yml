@@ -1,10 +1,16 @@
 services:
   api:
     build: .
-    image: farm2market/price-predictor     # ← Add this line (choose any name you like, lowercase-no-spaces recommended)
+    image: farm2market/price-predictor
     container_name: farm2market-api
     ports:
       - "5000:5000"
-    volumes:
-      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:5000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
     restart: unless-stopped
